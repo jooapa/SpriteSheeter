@@ -2,9 +2,9 @@
   "name": "spritesheeter",
   "version": "1.0.0",
   "description": "Spritesheet maker",
-  "main": "index.js",
+  "main": "./node.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node node.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,5 @@
   "bugs": {
     "url": "https://github.com/jooapa/SpriteSheeter/issues"
   },
-  "homepage": "https://github.com/jooapa/SpriteSheeter#readme"
+  "homepage": "https://github.com/jooapa/SpriteSheeter"
 }
