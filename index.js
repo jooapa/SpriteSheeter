@@ -11,9 +11,9 @@ formUpdate = function () {
     return;
   } else {
     document.getElementById("errors").innerHTML = "";
-    if (document.getElementById("canvas") != null) {
-        document.getElementById("canvas").style.display = "block";
-    }
+        if (document.getElementById("canvas") != null) {
+            document.getElementById("canvas").style.display = "block";
+        }
     }
   Start(selectedFiles, numRows, numColumns, rendering);
 };

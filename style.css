@@ -1,5 +1,6 @@
 :root {
     --canvasSize: 50%;
+    --canvasRendering: pixelated;
 }
 
 body {
@@ -22,7 +23,15 @@ body {
     padding: 20px 20px;
 }
 
+.container #canvasSize {
+    width: 300px;
+}
+
 #imageDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
 }
 
@@ -38,6 +47,7 @@ canvas {
     margin: 0 auto;
     width: var(--canvasSize);
     height: auto;
+    image-rendering: var(--canvasRendering);
 }
 
 input[type="number"] {
