@@ -6,7 +6,7 @@ http
   .createServer(function (req, res) {
     var filePath = "." + req.url;
     if (filePath === "./") {
-      filePath = "./main.html";
+      filePath = "./index.html";
     }
 
     var extname = path.extname(filePath);
