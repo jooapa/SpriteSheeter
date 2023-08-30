@@ -27,6 +27,10 @@ body {
     width: 300px;
 }
 
+.container help {
+    color: #313131;
+    font-size: 0.8rem;
+}
 .container h3 {
     margin: 0;
     padding: 0;
