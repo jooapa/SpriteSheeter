@@ -1,9 +1,10 @@
-onchange = function () {
+formUpdate = function () {
   const selectedFiles = Array.from(document.getElementById("fileInput").files);
   const numRows = parseInt(document.getElementById("numRows").value);
   const numColumns = parseInt(document.getElementById("numColumns").value);
   Start(selectedFiles, numRows, numColumns);
 };
+
 var r = document.querySelector(":root");
 canvasSize = function (value) {
     r.style.setProperty("--canvasSize", value + "%");
@@ -47,7 +48,7 @@ Start = (selectedFiles, numRows, numColumns) => {
         numRows = Math.min(numRows, images.length);
         numColumns = Math.min(numColumns, images.length);
 
-        // Draw images to canvas in a grid usingh the specified number of rows and columns
+        // Draw images to canvas in a grid using the specified number of rows and columns
         let x = 0;
         let y = 0;
         images.forEach((img, index) => {
