@@ -1,0 +1,22 @@
+{
+  "name": "spritesheeter",
+  "version": "1.0.0",
+  "description": "Spritesheet maker",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jooapa/SpriteSheeter.git"
+  },
+  "keywords": [
+    "spritesheet"
+  ],
+  "author": "Jooapa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jooapa/SpriteSheeter/issues"
+  },
+  "homepage": "https://github.com/jooapa/SpriteSheeter#readme"
+}
