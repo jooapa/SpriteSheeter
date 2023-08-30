@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpriteSheeter</title>
-    <script src="index.js" defer></script>  
-    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="index.js" defer></script>  
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 <body>
@@ -19,6 +19,11 @@
             <label for="numColumns">Number of Columns:</label>
             <input type="number" id="numColumns" value="1" min="1">
             <br>
+            <label for="offset">Image Offset:</label> <br>
+            x: <input type="number" id="xSize" value="0" min="1">
+            y: <input type="number" id="ySize" value="0" min="1">
+            <br>
+            <label for="padding">Image-Render:</label>
             <select id="rendering">
                 <option value="pixelated">pixelated</option>
                 <option value="auto">auto</option>
