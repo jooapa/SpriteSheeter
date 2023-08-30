@@ -1,28 +1,23 @@
-document.getElementById("myForm").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent the default form submission
-  const fileInput = document.getElementById("fileInput");
-  const selectedFiles = Array.from(fileInput.files);
+onchange = function () {
+  const selectedFiles = Array.from(document.getElementById("fileInput").files);
   const numRows = parseInt(document.getElementById("numRows").value);
   const numColumns = parseInt(document.getElementById("numColumns").value);
-  Start(selectedFiles, fileInput, numRows, numColumns);
-});
-
-onchange = function (type) {
-    const fileInput = document.getElementById("fileInput");
-    const selectedFiles = Array.from(fileInput.files);
-    const numRows = parseInt(document.getElementById("numRows").value);
-    const numColumns = parseInt(document.getElementById("numColumns").value);
-    
-    //if the 
-    
-    Start(selectedFiles, fileInput, numRows, numColumns);
+  Start(selectedFiles, numRows, numColumns);
+};
+var r = document.querySelector(":root");
+canvasSize = function (value) {
+    r.style.setProperty("--canvasSize", value + "%");
 };
 
-Start = (selectedFiles, fileInput, numRows, numColumns) => {
+Start = (selectedFiles, numRows, numColumns) => {
   if (selectedFiles.length === 0 || numRows <= 0 || numColumns <= 0) {
+    document.getElementById("errors").style.color = "red";
+    document.getElementById("errors").innerHTML =
+      "Please select images and specify the number of rows and columns.";
     return;
+  } else {
+    document.getElementById("errors").innerHTML = "";
   }
-  console.log(selectedFiles);
 
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -51,38 +46,53 @@ Start = (selectedFiles, fileInput, numRows, numColumns) => {
 
         numRows = Math.min(numRows, images.length);
         numColumns = Math.min(numColumns, images.length);
-        
+
         // Draw images to canvas in a grid usingh the specified number of rows and columns
         let x = 0;
         let y = 0;
         images.forEach((img, index) => {
-            context.drawImage(img, x, y);
-            x += img.width;
-            if ((index + 1) % numColumns === 0) {
-                x = 0;
-                y += img.height;
-            }
+          context.drawImage(img, x, y);
+          x += img.width;
+          if ((index + 1) % numColumns === 0) {
+            x = 0;
+            y += img.height;
+          }
         });
 
-        // Create a ZIP archive
-        // const zip = new JSZip();
-        // const imagesFolder = zip.folder("images");
+        //if the product of the number of rows and columns is less than the number of images, display an error
+        if (
+          parseInt(document.getElementById("numRows").value) *
+            parseInt(document.getElementById("numColumns").value) <
+          images.length
+        ) {
+          document.getElementById("errors").style.color = "red";
+          document.getElementById("errors").innerHTML =
+            "The number of rows and columns specified is too low to display all images.";
+        } else {
+          document.getElementById("errors").innerHTML = "";
 
-        // // Convert the combined image to a Blob
-        // canvas.toBlob((blob) => {
-        //   imagesFolder.file("combined_image.png", blob);
+          if (
+            parseInt(document.getElementById("numRows").value) *
+              parseInt(document.getElementById("numColumns").value) >
+            images.length
+          ) {
+            document.getElementById("errors").style.color = "orange";
+            document.getElementById("errors").innerHTML =
+              "The number of rows and columns specified is too high considering the number of images.";
+          } else {
+            document.getElementById("errors").innerHTML = "";
+          }
+        }
 
-        //   // Generate ZIP and display download link
-        //   zip.generateAsync({ type: "blob" }).then(function (content) {
-        //     const downloadLink = document.getElementById("downloadLink");
-        //     downloadLink.href = URL.createObjectURL(content);
-        //     downloadLink.download = "images.zip";
-        //     downloadLink.style.display = "block";
-        //   });
-        // });
-        //show the combined image
+        // show error that the might be too many open spacs in the canvas when the number of rows and columns is too high considering the number of images
+
         imageDisplay.appendChild(canvas);
+        canvas.id = "canvas";
       }
     };
   });
 };
+
+isOdd = (num) => {
+    return num % 2;
+}
