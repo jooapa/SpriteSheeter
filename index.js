@@ -2,7 +2,20 @@ formUpdate = function () {
   const selectedFiles = Array.from(document.getElementById("fileInput").files);
   const numRows = parseInt(document.getElementById("numRows").value);
   const numColumns = parseInt(document.getElementById("numColumns").value);
-  Start(selectedFiles, numRows, numColumns);
+  const rendering = document.getElementById("rendering").value;
+  if (selectedFiles.length === 0) {
+    document.getElementById("errors").style.color = "red";
+    document.getElementById("errors").innerHTML =
+        "Please select images and specify the number of rows and columns.";
+        document.getElementById("canvas").style.display = "none";
+    return;
+  } else {
+    document.getElementById("errors").innerHTML = "";
+    if (document.getElementById("canvas") != null) {
+        document.getElementById("canvas").style.display = "block";
+    }
+    }
+  Start(selectedFiles, numRows, numColumns, rendering);
 };
 
 var r = document.querySelector(":root");
@@ -10,7 +23,7 @@ canvasSize = function (value) {
     r.style.setProperty("--canvasSize", value + "%");
 };
 
-Start = (selectedFiles, numRows, numColumns) => {
+Start = (selectedFiles, numRows, numColumns, rendering) => {
   if (selectedFiles.length === 0 || numRows <= 0 || numColumns <= 0) {
     document.getElementById("errors").style.color = "red";
     document.getElementById("errors").innerHTML =
@@ -19,6 +32,12 @@ Start = (selectedFiles, numRows, numColumns) => {
   } else {
     document.getElementById("errors").innerHTML = "";
   }
+
+  if (rendering === "pixelated") {
+    r.style.setProperty("--canvasRendering", "pixelated");
+    } else if (rendering === "auto") {
+    r.style.setProperty("--canvasRendering", "auto");
+    }
 
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
