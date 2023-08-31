@@ -15,21 +15,36 @@ function App() {
     if (selectedFiles.length > 0 && numRows > 0 && numColumns > 0) {
       renderCanvas();
     }
-  }, [selectedFiles, numRows, numColumns]);
+  }, [selectedFiles, numRows, numColumns, xSize, ySize]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--canvasRendering", rendering);
+    root.style.setProperty("--canvasSize", `${canvasSize}vw`);
+
+    if (numRows * numColumns < selectedFiles.length) {
+      root.style.setProperty("--errorColor", "red");
+      setErrors("The number of rows and columns specified is too low to display all images.");
+    }
+    else if (numRows * numColumns > selectedFiles.length && loadedImages.length > 0) {
+      root.style.setProperty("--errorColor", "orange");
+      setErrors(
+        "The number of rows and columns specified is too high considering the number of images."
+      );
+    } else {
+      setErrors("");
+    }
+  }, [numRows, numColumns, selectedFiles, loadedImages, rendering, canvasSize]);
+
+
+  const canvasSizeHandler = (value) => {
+    setCanvasSize(value);
+  };
 
   const formUpdate = (e) => {
     console.log("formUpdate");
     const files = Array.from(e.target.files);
     setSelectedFiles(files);
-  };
-
-  const canvasSizeHandler = (value) => {
-    setCanvasSize(value);
-    console.log(value);
-    const canvasElement = document.getElementById("canvas");
-    if (canvasElement) {
-      canvasElement.style.width = `${value}%`;
-    }
   };
 
   const clearCanvas = () => {
@@ -46,7 +61,7 @@ function App() {
     const context = canvas.getContext("2d");
     const imageDisplay = document.getElementById("imageDisplay");
     imageDisplay.innerHTML = "";
-
+    
     const newLoadedImages = [];
 
     Promise.all(
@@ -63,15 +78,10 @@ function App() {
     ).then(() => {
       setLoadedImages(newLoadedImages);
 
-      // canvas.width = newLoadedImages[0].width * numColumns;
-      // canvas.height = newLoadedImages[0].height * numRows;
-
-      // add offset
       canvas.width = 
         newLoadedImages[0].width * numColumns + xSize * numColumns;
       canvas.height =
         newLoadedImages[0].height * numRows + ySize * numRows;
-
 
       let x = 0;
       let y = 0;
@@ -147,7 +157,7 @@ function App() {
           <select
             id="rendering"
             value={rendering}
-            onChange={(e) => setRendering(e.target.value)}
+            onChange={(e) => { setRendering(e.target.value) }}
           >
             <option value="pixelated">pixelated</option>
             <option value="auto">auto</option>
@@ -169,7 +179,9 @@ function App() {
           {errors}
         </div>
       </div>
-        <div id="imageDisplay"></div>
+        <div id="imageDisplay">
+          <canvas id="canvas"></canvas>
+        </div>
     </div>
   );
 }
