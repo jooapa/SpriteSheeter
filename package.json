@@ -2,6 +2,9 @@
   "name": "spritesheet-maker",
   "private": true,
   "version": "0.0.0",
+  "description": "Spritesheet Maker",
+  "author": "Jooapa",
+  "homepage": "https://jooapa.github.io/Spritesheet-Maker/spritesheet-maker/",
   "type": "module",
   "scripts": {
     "dev": "vite",
