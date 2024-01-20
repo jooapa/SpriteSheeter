@@ -1,13 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spritesheet Maker</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpriteSheeter</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="index.js" defer></script>  
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+
+</head>
+<body>
+    <div class="container">
+        <form id="myForm" onchange="formUpdate()">
+            <input type="file" id="fileInput" name="file" multiple>
+            <br>
+            <label for="numRows">Number of Rows:</label>
+            <input type="number" id="numRows" value="1" min="1">
+            <br>
+            <label for="numColumns">Number of Columns:</label>
+            <input type="number" id="numColumns" value="1" min="1">
+            <br>
+            <label for="offset">Image Offset:</label> <br>
+            x: <input type="number" id="xSize" value="0" min="1">
+            y: <input type="number" id="ySize" value="0" min="1">
+            <br>
+            <label for="padding">Image-Render:</label>
+            <select id="rendering">
+                <option value="pixelated">pixelated</option>
+                <option value="auto">auto</option>
+            </select><help>*wont affect downloaded image</help>
+        </form>
+        <h3>Canvas Size:</h3> 
+        <input
+        type="range"
+        min="1"
+        max="140"
+        step="1"
+        oninput="canvasSize(this.value)"
+        id="canvasSize"
+        />
+        <div id="errors"></div>
+    </div>
+    <div id="imageDisplay"></div>
+</body>
 </html>
